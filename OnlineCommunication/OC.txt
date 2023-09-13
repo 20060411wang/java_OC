@@ -1,0 +1,72 @@
+create database oc;
+
+create table user
+(
+    ID       varchar(6) primary key not null,
+    PassWord char(32)               not null
+);
+
+insert into user
+values ('root', md5(123)),
+       ('xm', md5(123));
+
+create index ID_Index on user (ID);
+create index PassWord_Index on user (PassWord);
+
+create table `offlineinformationtable`
+(
+    `index`  int primary key auto_increment,
+    sender   varchar(6)  not null,
+    acceptor varchar(6)  not null,
+    content  varchar(64),
+    date     varchar(60),
+    DT       varchar(10) not null
+);
+
+create index acceptor_Index on offlineinformationtable (acceptor);
+
+create table group_count
+(
+    count varchar(10)
+);
+
+insert into group_count
+values ('100001');
+
+create table group
+(
+    Group_Index varchar(10) primary key not null,
+    Group_Name  varchar(10)             not null,
+    GroupMaster varchar(6)              not null,
+    Date        varchar(25)             not null
+);
+
+create index Group_Name on group (Group_Name);
+
+
+create table `UserJoiningGroup`
+(
+    Group_Index varchar(10) not null, #群id
+    Group_Name  varchar(10) not null, #群名
+    UserName    varchar(6)  not null, #用户名
+    Date        varchar(25) not null, #加入时间
+    foreign key (Group_Index) references `Group` (Group_Index)
+);
+
+create index Group_Index on UserJoiningGroup(Group_Index);
+create index UserName on UserJoiningGroup(UserName);
+create index Group_Name on UserJoiningGroup(Group_Name);
+
+create table `OfflineFileInformation`
+(
+    `index`    int primary key auto_increment,
+    `sender`   varchar(6)  not null,
+    `acceptor` varchar(6)  not null,
+    `file`     MediumBlob,
+    `fileName` varchar(60) not null,
+    `DT`       varchar(10) not null,
+    `Date`     varchar(60) not null
+);
+
+create index acceptor_Index on OfflineFileInformation (acceptor);
+

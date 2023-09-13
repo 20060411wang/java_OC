@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: ViewServer
+Class-Path: druid-1.1.10.jar commons-dbutils-1.3.jar mysql-connector-j-8
+ .0.33.jar
+
